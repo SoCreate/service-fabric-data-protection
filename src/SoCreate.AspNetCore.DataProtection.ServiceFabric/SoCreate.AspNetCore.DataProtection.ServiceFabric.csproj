@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="SoCreate.Extensions.Caching.ServiceFabric" Version="1.0.6" />
+    <PackageReference Include="SoCreate.Extensions.Caching.ServiceFabric" Version="1.0.7" />
   </ItemGroup>
 
 </Project>
