@@ -3,7 +3,7 @@
 # Service Fabric Data Protection
 An implementation of ASP.NET Core data protection that allows Service Fabric to act as the store for you data protection keys. You can use this library to easily protect data when you need to persist the trusted information for later retrieval, but don't trust the persistence mechanism.
 
-[![Build status](https://dev.azure.com/SoCreate/Service%20Fabric%20Data%20Protection/_apis/build/status/Service%20Fabric%20Data%20Protection)](https://dev.azure.com/SoCreate/Service%20Fabric%20Data%20Protection/_build/latest?definitionId=6)
+[![Build Status](https://dev.azure.com/SoCreate/Open%20Source%20Projects/_apis/build/status/SoCreate.service-fabric-data-protection?branchName=master)](https://dev.azure.com/SoCreate/Open%20Source%20Projects/_build/latest?definitionId=15&branchName=master)
 [![NuGet Badge](https://buildstats.info/nuget/SoCreate.AspNetCore.DataProtection.ServiceFabric)](https://www.nuget.org/packages/SoCreate.AspNetCore.DataProtection.ServiceFabric/)
 
 ## Documentation (<http://service-fabric-data-protection.socreate.it/>)
