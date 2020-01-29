@@ -7,7 +7,13 @@ variables:
   buildConfiguration: Release
   projectPaths: src/**/*.csproj
   testProjectPaths: 'tests/**/*[Tt]ests/*.csproj'
+  dotNetSDKVersion: '3.1.x'
 steps:
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK $(dotNetSDKVersion)'
+    inputs:
+      packageType: 'sdk'
+      version: $(dotNetSDKVersion)
   - task: DotNetCoreCLI@2
     displayName: Test
     inputs:
