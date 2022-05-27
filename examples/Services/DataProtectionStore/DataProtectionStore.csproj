@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.ServiceFabric.Services" Version="6.0.*" />
-    <PackageReference Include="SoCreate.Extensions.Caching.ServiceFabric" Version="2.*" />
+    <PackageReference Include="SoCreate.Extensions.Caching.ServiceFabric" Version="3.*" />
   </ItemGroup>
 
 </Project>
