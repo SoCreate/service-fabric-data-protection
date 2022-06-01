@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 [assembly: InternalsVisibleTo("SoCreate.AspNetCore.DataProtection.Tests")]
 namespace SoCreate.AspNetCore.DataProtection.ServiceFabric
@@ -26,16 +27,16 @@ namespace SoCreate.AspNetCore.DataProtection.ServiceFabric
 
         public IReadOnlyCollection<XElement> GetAllElements()
         {
-            var bytes = _distributedCache.Get(CacheKey);
-            return GetElementListFromByteArray(bytes).AsReadOnly();
+            var bytes = _distributedCache.Get(CacheKey) ?? Array.Empty<byte>();
+            return GetElementList(Encoding.UTF8.GetString(bytes)).AsReadOnly();
         }
 
         public void StoreElement(XElement element, string friendlyName)
         {
             var options = new DistributedCacheEntryOptions { AbsoluteExpiration = DateTimeOffset.MaxValue };
 
-            var bytes = _distributedCache.Get(CacheKey);
-            var elements = GetElementListFromByteArray(bytes);
+            var bytes = _distributedCache.Get(CacheKey) ?? Array.Empty<byte>();
+            var elements = GetElementList(Encoding.UTF8.GetString(bytes));
             elements.Add(element);
 
             _distributedCache.Set(CacheKey, ConvertElementListToByteArray(elements), options);
@@ -51,13 +52,18 @@ namespace SoCreate.AspNetCore.DataProtection.ServiceFabric
             }
         }
 
-        private List<XElement> GetElementListFromByteArray(byte[] bytes)
+        private List<XElement> GetElementList(string value)
         {
             var list = new List<XElement>();
-            if (bytes != null)
+            if (!string.IsNullOrWhiteSpace(value))
             {
+                if (value.Contains("\x00"))
+                {
+                    value = value.Replace("\x00", "");
+                }
+
                 var serializer = new XmlSerializer(typeof(List<string>));
-                using (var ms = new MemoryStream(bytes))
+                using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(value)))
                 {
                     var elements = (List<string>)(serializer.Deserialize(ms));
                     foreach (var element in elements)
